@@ -11,7 +11,6 @@ def insert_coins(coins, conn=None):
         logger.warning("No coins data to insert.")
         return
 
-    conn = conn or db_connect()
     should_close = False
 
     if conn is None:
