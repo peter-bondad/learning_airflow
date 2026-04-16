@@ -1,6 +1,6 @@
 import os
 from psycopg2 import connect
-from src.pipelines.utils.logger import get_logger
+from src.utils.logger import get_logger
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
