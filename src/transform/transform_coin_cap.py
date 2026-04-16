@@ -1,7 +1,19 @@
 from src.utils.logger import get_logger
+from pydantic import BaseModel, Field, ValidationError
 
 logger = get_logger(__name__)
 
+class CoinCapSchema(BaseModel):
+    id: str
+    rank: int
+    symbol: str
+    name: str
+    price_usd: float = Field(alias="priceUsd")
+
+    model_config = {
+        "extra": "ignore",
+        "populate_by_name": True
+    }
 
 def transform_coins(coins):
     transformed = []
@@ -10,15 +22,10 @@ def transform_coins(coins):
     logger.info(f"Transforming {len(coins)} coins")
     for c in coins:
         try:
-            transformed.append({
-                "id": c["id"],
-                "rank": int(c["rank"]),
-                "symbol": c["symbol"],
-                "name": c["name"],
-                "priceUsd": float(c["priceUsd"]),
-            })
-        except (KeyError, ValueError, TypeError) as e:
-            logger.warning(f"Failed to transform coin {c.get('id')}: {e}")
+            coin = CoinCapSchema.model_validate(c, strict=True)
+            transformed.append(coin.model_dump())
+        except ValidationError as e:
+            logger.warning(f"Invalid coin {c.get('id', 'unknown')}: {e.errors()}")
             failed.append(c.get("id", "unknown"))
 
     logger.info(f"Transformed {len(transformed)} coins")
