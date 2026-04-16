@@ -6,12 +6,18 @@ from src.utils.logger import get_logger
 logger = get_logger(__name__)
 
 
-def insert_coins(coins):
+def insert_coins(coins, conn=None):
     if not coins:
         logger.warning("No coins data to insert.")
         return
 
-    conn = db_connect()
+    conn = conn or db_connect()
+    should_close = False
+
+    if conn is None:
+        conn = db_connect()
+        should_close = True
+
     logger.info("Inserting coins data into staging.coin_cap table...")
 
     try:
@@ -47,4 +53,5 @@ def insert_coins(coins):
         conn.rollback()
         raise
     finally:
-        conn.close()
+        if should_close:
+            conn.close()
