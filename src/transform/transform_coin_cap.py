@@ -8,7 +8,7 @@ class CoinCapSchema(BaseModel):
     rank: int
     symbol: str
     name: str
-    price_usd: float = Field(alias="priceUsd")
+    priceUsd: float = Field(alias="price_usd")
 
     model_config = {
         "extra": "ignore",
