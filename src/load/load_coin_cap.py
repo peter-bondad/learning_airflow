@@ -22,7 +22,7 @@ def insert_coins(coins):
                     c["rank"],
                     c["symbol"],
                     c["name"],
-                    c["priceUsd"],
+                    c["price_usd"],
                 )
                 for c in coins
             ]
