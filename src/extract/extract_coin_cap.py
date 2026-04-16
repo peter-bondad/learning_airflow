@@ -6,19 +6,19 @@ logger = get_logger(__name__)
 
 
 def fetch_coins(limit: int = 10):
-    API_KEY = os.getenv("COINCAP_API_KEY")
+    COIN_CAP_API_KEY = os.getenv("COINCAP_API_KEY")
 
     COIN_CAP_FIELDS = ["id", "rank", "symbol", "name", "priceUsd"]
 
-    # Validate API_KEY
-    if not API_KEY:
+    # Validate COIN_CAP_API_KEY
+    if not COIN_CAP_API_KEY:
         raise ValueError("COINCAP_API_KEY is not set")
 
     url = f"https://rest.coincap.io/v3/assets?limit={limit}"
 
     res = requests.get(
         url,
-        headers={"Authorization": f"Bearer {API_KEY}"},
+        headers={"Authorization": f"Bearer {COIN_CAP_API_KEY}"},
         timeout=10,
     )
     res.raise_for_status()
