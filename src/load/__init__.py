@@ -1,0 +1,1 @@
+from src.load.load_coin_cap import load_coins

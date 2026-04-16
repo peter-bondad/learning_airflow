@@ -1,0 +1,1 @@
+from src.extract.extract_coin_cap import fetch_coins
