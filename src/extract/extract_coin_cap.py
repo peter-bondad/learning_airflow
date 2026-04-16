@@ -4,7 +4,6 @@ from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-
 def fetch_coins(limit: int = 10):
     COIN_CAP_API_KEY = os.getenv("COINCAP_API_KEY")
 
