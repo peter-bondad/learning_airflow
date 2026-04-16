@@ -22,7 +22,7 @@ def transform_coins(coins):
     logger.info(f"Transforming {len(coins)} coins")
     for c in coins:
         try:
-            coin = CoinCapSchema.model_validate(c, strict=True)
+            coin = CoinCapSchema.model_validate(c)
             transformed.append(coin.model_dump())
         except ValidationError as e:
             logger.warning(f"Invalid coin {c.get('id', 'unknown')}: {e.errors()}")
