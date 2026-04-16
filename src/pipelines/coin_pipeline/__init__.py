@@ -1,2 +1,0 @@
-from src.pipelines.coin_pipeline.fetch_coin_cap_api import fetch_coins
-from src.pipelines.coin_pipeline.coin_cap import insert_coins
